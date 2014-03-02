@@ -1,3 +1,10 @@
+/**
+ * scope compiler
+ * version: 0.1.0
+ * By Ali Najafizadeh
+ * MIT Licensed.
+ */
+
 function reduce(base, arr, func) {
     arr.forEach(function (item) {
         base = func(base, item);

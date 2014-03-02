@@ -1,3 +1,10 @@
+/**
+ * scope.js: The world's smallest dependency injection framework for JavaScript (1011 bytes without gzip)
+ * version: 0.1.0
+ * By Ali Najafizadeh
+ * MIT Licensed.
+ */
+
 (function () {
     var count = 0,
         scopes = {},
