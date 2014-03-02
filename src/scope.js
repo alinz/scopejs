@@ -237,10 +237,9 @@
         };
     }
 
-    if (module) {
+    try {
         module.exports = scope;
-    }
-    else {
+    } catch(e) {
         window.scope = scope;
     }
 }());

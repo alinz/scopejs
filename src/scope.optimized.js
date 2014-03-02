@@ -113,6 +113,6 @@
         };
     }
 
-    if (module) module.exports = scope;
-    else window.scope = scope;
+    try{ module.exports = scope; }
+    catch (e) { window.scope = scope; }
 }());
