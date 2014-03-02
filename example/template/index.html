@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Script Tag Example</title>
+        <script type="text/javascript" src="../../src/scope.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            scope.get = function (name, update) {
+                var xhr,
+                    path;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                }
+                if (xhr === false) {
+                    return null;
+                }
+
+                path = 'template/' + name.toLowerCase() + ".template";
+
+                xhr.open('GET', path, true);
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status > 199 && this.status < 300) {
+                            update(xhr.responseText);
+                        } else if (this.status > 399) {
+                            console.log("File '" + name + "' is not loaded.");
+                        }
+                    }
+                };
+
+                xhr.send();
+                return xhr;
+            };
+
+            scope(function (Test1, Test2) {
+                alert(Test1 + ' ' + Test2);
+            });
+        </script>
+    </body>
+</html>
