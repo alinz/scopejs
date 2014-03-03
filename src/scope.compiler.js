@@ -56,12 +56,53 @@ function findAllOccurrences(str) {
     return result;
 }
 
+function starComment(str, index) {
+    while (!(str[index] == '*' && str[index + 1] == '/')) {
+        index++;
+    }
+    return index + 1;
+}
+
+function slashComment(str, index) {
+    while (index != str.length && str[index] != '\n' && str[index] != '\r') {
+        index++;
+    }
+    return index;
+}
+
+function passString(str, index, ch) {
+    while (str[index] != ch) {
+        index++;
+    }
+    return index;
+}
+
+function ignoreCases(str, index) {
+    if (str[index] == '/') {
+        switch(str[index+1]) {
+            case "*":
+                index = starComment(str, index);
+                break;
+            case "/":
+                index = slashComment(str, index);
+                break;
+        }
+    } else if (str[index] == '"') {
+        index = passString(str, index + 1, '"');
+    } else if (str[index] == "'") {
+        index = passString(str, index + 1, "'");
+    }
+
+    return index
+}
+
 function findLocationToInsert(str, index) {
     var i = index,
         length = str.length,
         stack = ['('];
 
     for(; i < length; i++) {
+        i = ignoreCases(str, i);
         switch (str[i]) {
             case '(':
                 stack.push('(');
@@ -97,5 +138,10 @@ compile.makeArrayString = makeArrayString;
 compile.findAllOccurrences = findAllOccurrences;
 compile.findLocationToInsert = findLocationToInsert;
 compile.insertStringAt = insertStringAt;
+
+compile.starComment = starComment;
+compile.slashComment = slashComment;
+compile.passString = passString;
+compile.ignoreCases = ignoreCases;
 
 module.exports = compile;
