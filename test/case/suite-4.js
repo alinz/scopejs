@@ -2,26 +2,23 @@ var fs = require("fs"),
     SimpleTest = require("./../lib/simple_test.js").SimpleTest,
     compiler = require("./../../src/scope.compiler.js");
 
-SimpleTest("Scope compiler comment and string ignore case", function (suite) {
-    suite.test("starComment", function (test) {
-        var str = "/***               */";
+SimpleTest("Scope compiler compile a single file", function (suite) {
 
-        var index = compiler.starComment(str, 0);
-        test.assert(index == 20);
+    suite.test("Load file test case 1", function (test) {
+        var test_script = fs.readFileSync(__dirname + "/support/suite4/test_script_0.js").toString(),
+            test_script_compiled = fs.readFileSync(__dirname + "/support/suite4/test_script_0_compiled.js").toString();
+
+        var compiled = compiler(test_script);
+
+        test.assert("compiled file is not the same as example.", compiled == test_script_compiled);
     });
 
-    suite.test("slashComment", function (test) {
-        var str = "//////////";
+    suite.test("Load file test case 2", function (test) {
+        var test_script = fs.readFileSync(__dirname + "/support/suite4/test_script_1.js").toString(),
+            test_script_compiled = fs.readFileSync(__dirname + "/support/suite4/test_script_1_compiled.js").toString();
 
-        var index = compiler.slashComment(str, 0);
-        test.assert(index == 10);
+        var compiled = compiler(test_script);
+
+        test.assert("compiled file is not the same as example.", compiled == test_script_compiled);
     });
-
-    suite.test("passString", function (test) {
-        var str = "' heloo this is world speaking', yes";
-
-        var index = compiler.passString(str, 1, "'");
-        test.assert(index == 30);
-    });
-
 });
