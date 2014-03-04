@@ -209,7 +209,7 @@ which now `scope` has all the necessary information about injected variables.
 
 >Since the process of converting those value is time consuming, `scope.js` comes with a compiler, which can be used before passing to uglification. This compiler reads the source code and modify the output source code which contains injected values.
 
-In the build folder, there is a `bash` script named `compiler` which can be used as a compiler. In order to use it, first it needs to be executable. So run the following command in `tedminal`
+In the build folder, there is a `bash` script named `compile` which can be used as a compiler. In order to use it, first it needs to be executable. So run the following command in `tedminal`
 
 ```
 chmod +x compile
