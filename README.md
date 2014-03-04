@@ -174,7 +174,7 @@ for more information take a look at the examples. Examples are cover the followi
 The only issue of using this framework is uglification. Since in `JavaScript` function can accept any arguments at any time, and the variables that passes to function can be distorted by uglification. For that reason, `scope.js` has a way to by pass that issue. Let's see an example.
 
 ```js
-scope("Module1"", function (Test) {
+scope("Module1", function (Test) {
 	...	
 });
 ```
@@ -192,7 +192,7 @@ As you can see the variable that has be passed to `module1` has been distorted a
 Each `scope` module returns a function that accept an array of arguments. Those elements inside that array will be injected into that function in order. So in order for us to make our module safer, we have to do the following before uglification.
 
 ```js
-scope("Module1"", function (Test) {
+scope("Module1", function (Test) {
 	...	
 })(['Test']);
 ```
@@ -200,7 +200,7 @@ scope("Module1"", function (Test) {
 So now, after uglification, the result will be
 
 ```js
-scope("Module1"", function (a) {
+scope("Module1", function (a) {
 	...	
 })(['Test']);
 ```
