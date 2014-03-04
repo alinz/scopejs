@@ -80,7 +80,7 @@ require(["js/module1.js",
 });
 ```
 
-In my humble experiences, I faced a lot of order problem in large scale javascript and I had to look at the module signature to figure out the problem. Adding a new dependency will also causing to find the right place to add. For example if I want to bring `module6` into my function I have to either add it at the end of my list or if I add it in the middle I have to figure out the location that `require.js` will inject into.
+In my humble experiences, I faced a lot of order problems in large scale javascript and I had to look at the module signature to figure out the problem. Adding a new dependency will also causing to find the right place to add. For example if I want to bring `module6` into my function I have to either add it at the end of my list or if I add it in the middle I have to figure out the location that `require.js` will inject into.
 
 The way that `scope.js` fixes that problem is simple. `scope.js` only cares about 2 things. Variable names and the order that developer wants.
 
@@ -212,13 +212,13 @@ which now `scope` has all the necessary information about injected variables.
 In the build folder, there is a `bash` script named `compiler` which can be used as a compiler. In order to use it, first it needs to be executable. So run the following command in `tedminal`
 
 ```
-chmod +x compiler
+chmod +x compile
 ```
 
 The compiler itself is a self contain `Node.js` app which consumes source code from linux pipe and echo the output to `stdout`. For example
 
 ```
-cat app.js | ./compiler > app.compiled.js
+cat app.js | ./compile > app.compiled.js
 ```
 
 So in the above example, `app.js` is consumed by compiler and produces `app.compiled.js` which converted all `scope` modules into injected one. So now app.compiled.js can be passed to favourite uglification program.
