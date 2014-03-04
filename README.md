@@ -21,19 +21,18 @@ scope wasn't meant to be that small. I decided to challenge myself to see if I c
 ###Supports runtime dependency injection
 `require.js` does it by passing the list of files which needed to be loaded before required function is being called. For example
 
-```
+```js
 require(['js/common/util.js',
 		 'js/module/module1.js'], function (Util, Module1) {
 	...
 });
-
 ```
 
 So what you see above is a typical usage of `require.js`. However if you start using it you will soon realize that you are writing a lot of dependencies code. You have to maintain array of dependencies.
 
 now let see how we write the above code in `scope.js`.
 
-```
+```js
 scope(function (Util, Module1) {
 	...
 });
@@ -46,7 +45,7 @@ So as you can see, I wrote less code and I don't have to remember the path to ea
 ###Supports Async call scopes. No need to define a scope before using it
 In `scope.js` there is no function order hierarchy. What it means, you don't have to define one scope before using it. Let me show you in a real example,
 
-```
+```js
 scope("HelloWorld", function () {
 	return "Hello World, Heyyyyy";
 });
@@ -58,7 +57,7 @@ scope("Main", function (HelloWorld) {
 
 So as you can see I defined `HelloWorld` scope first and then I defined `Main` scope which consumes `HelloWorld`. This code will work for sure. However, sometimes, the order of scope definition is becomes very hard to maintain. So in one scenario you end up defining your `Main` scope first and then defining your `HelloWorld` scope. Scope doesn't not care about this problem. and It will call `Main` scope once `HelloWorld` is loaded. So Everything in scope is `Async`. So the following code also works as well.
 
-```
+```js
 scope("Main", function (HelloWorld) {
 	alert(HelloWorld) 
 });
@@ -71,7 +70,7 @@ scope("HelloWorld", function () {
 ###Supports non order dependency injection
 One of the frustration that I had with require.js or any module loaders, is that developers need to maintain the order of required dependencies. For example
 
-```
+```js
 require(["js/module1.js",
 		 "js/module2.js",
 		 "js/module4.js",
@@ -79,7 +78,6 @@ require(["js/module1.js",
 		 "js/module5.js"], function (Module1, Module2, Module4, Module3, Module5) {
 	...
 });
-
 ```
 
 In my humble experiences, I faced a lot of order problem in large scale javascript and I had to look at the module signature to figure out the problem. Adding a new dependency will also causing to find the right place to add. For example if I want to bring `module6` into my function I have to either add it at the end of my list or if I add it in the middle I have to figure out the location that `require.js` will inject into.
@@ -88,7 +86,7 @@ The way that `scope.js` fixes that problem is simple. `scope.js` only cares abou
 
 Let me rewrite the previous example in `scope.js`
 
-```
+```js
 scope(function (Module1, Module2, Module5, Module4, Module3) {
 	...
 });
@@ -103,7 +101,7 @@ Sometimes during the development you want to bring some modules and doing someth
 
 For example
 
-```
+```js
 scope("Module1", function () {
 	return "Hello";
 });
@@ -122,7 +120,7 @@ Since scope is just a dependency manager, it doesn't care where you want to use 
 
 For example:
 
-```
+```js
 scope("Module1", function () {
 	return "Hello World";
 });
@@ -148,7 +146,7 @@ This is the heart of `scope.js`. This is a design decision. If you want to suppo
 
 So let's take a look at the process in `scope.js`. When your `scope` function request a dependency, `scope.js` checks the cache, if it's not there then it will ask `scope.get` function. Now what the heck is `scope.get` function? Well, `scope.get` is a function with the following signature. 
 
-```
+```js
 scope.get = function (name, update) {
 	...
 };
@@ -156,7 +154,7 @@ scope.get = function (name, update) {
 
 `name` is the name of dependency that needed to be retrieve. Since every `ajax` call and most of retrieving objets are using network and they operation of those are asynchronous, then `scope.get` receive the second argument, `update`. `update` is a function with the following signature.
 
-```
+```js
 function update(obj) {
 	...
 }
@@ -175,7 +173,7 @@ for more information take a look at the examples. Examples are cover the followi
 ###Uglification of scope module
 The only issue of using this framework is uglification. Since in `JavaScript` function can accept any arguments at any time, and the variables that passes to function can be distorted by uglification. For that reason, `scope.js` has a way to by pass that issue. Let's see an example.
 
-```
+```js
 scope("Module1"", function (Test) {
 	...	
 });
@@ -183,7 +181,7 @@ scope("Module1"", function (Test) {
 
 this is one `scope` module and after being uglified, it becomes like this
 
-```
+```js
 scope("Module1", function (a) {
 
 });
@@ -193,7 +191,7 @@ As you can see the variable that has be passed to `module1` has been distorted a
 
 Each `scope` module returns a function that accept an array of arguments. Those elements inside that array will be injected into that function in order. So in order for us to make our module safer, we have to do the following before uglification.
 
-```
+```js
 scope("Module1"", function (Test) {
 	...	
 })(['Test']);
@@ -201,7 +199,7 @@ scope("Module1"", function (Test) {
 
 So now, after uglification, the result will be
 
-```
+```js
 scope("Module1"", function (a) {
 	...	
 })(['Test']);
