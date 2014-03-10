@@ -1,6 +1,8 @@
-#scope.js
+# scope.js
 
 The world's **smallest** `dependency injection framework` for JavaScript (**1024 bytes** without **gzip**)
+
+### Introduction
 
 scope wasn't meant to be that small. I decided to challenge myself to see if I can make it small as possible without losing any features. In the end, I managed to make it as small as `1011` bytes. Now let's take a look at the available features:
 
@@ -18,7 +20,7 @@ scope wasn't meant to be that small. I decided to challenge myself to see if I c
 12. Support all browsers. 
 13. MIT licence. *I will appreciate it if you keep the header*.
 
-###Supports runtime dependency injection
+### Supports runtime dependency injection
 `require.js` does it by passing the list of files which needed to be loaded before required function is being called. For example
 
 ```js
@@ -42,7 +44,7 @@ scope(function (Util, Module1) {
 
 So as you can see, I wrote less code and I don't have to remember the path to each file. I just passed my required variables and `scope.js` will take care of injecting those in a right order to my defined function once they are available.
 
-###Supports Async call scopes. No need to define a scope before using it
+### Supports Async call scopes. No need to define a scope before using it
 In `scope.js` there is no function order hierarchy. What it means, you don't have to define one scope before using it. Let me show you in a real example,
 
 ```js
@@ -67,7 +69,7 @@ scope("HelloWorld", function () {
 });
 ```
 
-###Supports non order dependency injection
+### Supports non order dependency injection
 One of the frustration that I had with require.js or any module loaders, is that developers need to maintain the order of required dependencies. For example
 
 ```js
@@ -94,7 +96,7 @@ scope(function (Module1, Module2, Module5, Module4, Module3) {
 
 I don't need to worry about the location and order. So changing the order of the arguments does not matter. I just want those variables injected into my function they way that I wanted. that's all.
 
-###Supports named and anonymous function
+### Supports named and anonymous function
 Sometimes during the development you want to bring some modules and doing something but you don't want to define and create a name for it.
 
 >duplicate scope names will cause `scope.js` to throw `Err1` exception.
@@ -115,7 +117,7 @@ scope(function (Module1, Module2) {
 });
 ```
 
-###Supports inline scope call
+### Supports inline scope call
 Since scope is just a dependency manager, it doesn't care where you want to use it. You can use it every where.
 
 For example:
@@ -138,10 +140,10 @@ As you can see, in the above example, we have a loop and inside this loop we hav
 
 >Be careful about using this inline scope. Inline scope is async call. So if you want to print 3 different Hello world message with counter you have to use forEach. Because `for` in `JavaScript` doesn't create a scope for you.
 
-###Supports multiple scopes in a single file
+### Supports multiple scopes in a single file
 In `scope.js`, You can define as many `scope` functions as you want. It is not bound to a single file. Once the file is being loaded, all the `scope` functions will be registered with `scope.js` core. So subsequent calls will read from internal cache.
 
-###Supports injecting `JavaScript` and String files. (Loading Template, CSS, and any files)
+### Supports injecting `JavaScript` and String files. (Loading Template, CSS, and any files)
 This is the heart of `scope.js`. This is a design decision. If you want to support regular loading `JavaScript`, you can implement it that way. if you want to use `ajax` and use `eval` function to load your resource, I won't stop you. This flexibility is my first decision when I start designing `scope.js`.
 
 So let's take a look at the process in `scope.js`. When your `scope` function request a dependency, `scope.js` checks the cache, if it's not there then it will ask `scope.get` function. Now what the heck is `scope.get` function? Well, `scope.get` is a function with the following signature. 
@@ -170,7 +172,7 @@ for more information take a look at the examples. Examples are cover the followi
 * Using with `Websocket`
 * Using with `Node.js`
 
-###Uglification of scope module
+### Uglification of scope module
 The only issue of using this framework is uglification. Since in `JavaScript` function can accept any arguments at any time, and the variables that passes to function can be distorted by uglification. For that reason, `scope.js` has a way to by pass that issue. Let's see an example.
 
 ```js
