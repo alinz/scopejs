@@ -1,6 +1,6 @@
 /**
- * scope.js: The world's smallest dependency injection framework for JavaScript (1011 bytes without gzip)
- * version: 0.1.0
+ * scope.js: The world's smallest dependency injection framework for JavaScript
+ * version: 0.1.1
  * By Ali Najafizadeh
  * MIT Licensed.
  */
@@ -9,16 +9,16 @@
     var //this variable is used to create a unique anonymous function name.
         count = 0,
 
-        //this map stores all the information about each scope module such as func, dependencies and obj
+    //this map stores all the information about each scope module such as func, dependencies and obj
         scopes = {},
 
-        //this map stores callbacks associated for each event.
+    //this map stores callbacks associated for each event.
         events = {},
 
-        //this is regular expression for trimming strings
+    //this is regular expression for trimming strings
         trim_expr = /^\s+|\s+$/gm,
 
-        //this is a regular expression for extracting information from function
+    //this is a regular expression for extracting information from function
         function_signature_expr = /^function\s*[\w\d]*\(([\w\d,_$\s]*)\)/;
 
     /**
@@ -162,9 +162,10 @@
                     });
                 }
             },
-            item.dependencies,
+            item.dependencies || [],
             function (dependencies) {
-                item.obj = item.fn.apply(null, dependencies);
+                item.obj = item.obj || item.fn.apply(null, dependencies);
+                item.status = "loaded";
                 if (!events[name]) return;
                 processEvent(name);
             }
@@ -224,13 +225,18 @@
             fn = args[1];
         }
 
-        dependencies = extractDependencies(fn);
-
         if (scopes[name]) {
-            throw "Err2:" + name;
+            if (scopes[name].status == "loading") {
+                return;
+            } else {
+                throw JSON.stringify(arguments);
+            }
         }
 
+        dependencies = extractDependencies(fn);
+
         scopes[name] = {
+            status: "loading",
             dependencies: dependencies,
             fn: fn
         };
