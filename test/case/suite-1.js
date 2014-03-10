@@ -1,5 +1,5 @@
 var SimpleTest = require("./../lib/simple_test.js").SimpleTest,
-    scope = require("./../../build/scope.min.js");
+    scope = require("./../../src/scope.optimized.js");;
 
 SimpleTest("Scope node.js test suite", function (suite) {
 
@@ -104,5 +104,4 @@ SimpleTest("Scope node.js test suite", function (suite) {
             test.assert(Test9_3 == "Test9_3Test9_1Test9_2Test9_1");
         });
     });
-
 });

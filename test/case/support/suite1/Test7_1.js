@@ -1,4 +1,4 @@
-var scope = require("./../../../../build/scope.min.js");
+var scope = require("./../../../../src/scope.optimized.js");
 
 scope("Test7_1", function () {
     return "Test7_1";
