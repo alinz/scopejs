@@ -1,4 +1,4 @@
-var scope = require("./../../src/scope.js");
+var scope = require("./../../src/scope.optimized.js");;
 
 scope.get = function (name, update) {
     require("./module/" + name.toLowerCase() + '.js');
