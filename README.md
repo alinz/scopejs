@@ -1,6 +1,6 @@
 #scope.js
 
-#####The world's `smallest` `dependency injection framework` for JavaScript (`1011 bytes` without `gzip`)
+#####The world's **smallest** `dependency injection framework` for JavaScript (**1024 bytes** without **gzip**)
 
 scope wasn't meant to be that small. I decided to challenge myself to see if I can make it small as possible without losing any features. In the end, I managed to make it as small as `1011` bytes. Now let's take a look at the available features:
 
