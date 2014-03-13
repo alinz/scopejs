@@ -94,7 +94,7 @@ scope(function (Module1, Module2, Module5, Module4, Module3) {
 });
 ```
 
-I don't need to worry about the location and order. So changing the order of the arguments does not matter. I just want those variables injected into my function they way that I wanted. that's all.
+I don't need to worry about the location and order. So changing the order of the arguments does not matter. I just want those variables injected into my function that way that I wanted. that's all.
 
 ### Supports named and anonymous function
 Sometimes during the development you want to bring some modules and doing something but you don't want to define and create a name for it.
