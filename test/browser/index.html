@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Script Tag Example</title>
+    <script type="text/javascript" src="../../src/scope.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    scope.get = function (name, update) {
+        var path =  name + ".js",
+                script = document.createElement('script');
+
+        script.async = true;
+        script.setAttribute('type', 'text/javascript');
+
+        //IE callback specific
+        script.onreadystatechange = function () {
+            if (this.readyState == 'loaded') {
+                update();
+            }
+        };
+
+        //other browsers callback
+        script.onload = function () {
+            update();
+        };
+
+        script.onerror = function () {
+            console.log("loading '" + path + "' caused a problem.");
+        };
+
+        script.src = path;
+        document.documentElement.appendChild(script);
+    };
+
+    scope(function (Test) {
+        console.log(Test);
+    });
+</script>
+</body>
+</html>
