@@ -12,10 +12,6 @@ function nextSuite() {
     }
 }
 
-function printResults() {
-
-}
-
 function runTests(suite) {
     if (!suite) return;
 
