@@ -1,6 +1,22 @@
 {
     "name": "scopejs",
+    "description": "The world's smallest dependency injection framework for JavaScript",
+    "author": {
+        "name": "Ali Najafizadeh",
+        "email": "a.najafizadeh@gmail.com",
+        "url": "http://blog.unilius.com"
+    },
     "version": "0.2.0",
-
-    "author": "Ali Najafizadeh"
+    "devDependencies": {
+        "simpletestjs": "0.0.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/alinz/scopejs.git"
+    },
+    "scripts": {
+        "test": "cd test; node test.js"
+    },
+    "main": "bin/scope.min.js",
+    "engine": "node >= 0.10.0"
 }

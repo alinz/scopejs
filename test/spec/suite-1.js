@@ -1,5 +1,5 @@
-var SimpleTest = require("./../lib/simple_test.js").SimpleTest,
-    scope = require("./../../src/scope.min.js");
+var SimpleTest = require("simpletestjs").SimpleTest,
+    scope = require("./../../bin/scope.min.js");
 
 SimpleTest("Scope node.js test suite", function (suite) {
 
